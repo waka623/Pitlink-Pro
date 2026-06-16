@@ -24,11 +24,11 @@ git add .
 git commit -m "Initial commit: PitLink Pro Fukui"
 ```
 
-[GitHub](https://github.com/new) で新しいリポジトリ（例: `pitlink-pro-fukui`）を作成し、プッシュします。
+リポジトリ: [waka623/Pitlink-Pro](https://github.com/waka623/Pitlink-Pro)
 
 ```bash
 git branch -M main
-git remote add origin https://github.com/<ユーザー名>/pitlink-pro-fukui.git
+git remote add origin https://github.com/waka623/Pitlink-Pro.git
 git push -u origin main
 ```
 
