@@ -33,6 +33,7 @@ dist-ssr
 .env
 backend/pitlink.db
 backend/__pycache__/
-backend/**/__pycache__/
+backend/.venv/
+.vercel
 bun.lock
 bunfig.toml
