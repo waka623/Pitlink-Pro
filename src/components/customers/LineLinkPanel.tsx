@@ -7,6 +7,7 @@ import {
   linkCustomerLine,
   unlinkCustomerLine,
 } from "@/lib/line-link";
+import { STORE } from "@/lib/store-config";
 import { linkLineCustomer, checkBackendHealth } from "@/api/backend";
 import { useEffect } from "react";
 
@@ -106,14 +107,14 @@ export function LineLinkPanel({ customer, canManage, onUpdated }: Props) {
       ) : (
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            顧客が公式LINEを友だち追加後、PitLinkで紐付けると
+            顧客が公式LINEを友だち追加後、{STORE.productName}で紐付けると
             <strong className="text-foreground"> 自動分析メッセージをLINEでスムーズに送信 </strong>
             できます。
           </p>
           <ol className="text-sm space-y-2 list-decimal list-inside text-muted-foreground">
             <li>お客様に公式LINE（{official.accountId}）を友だち追加してもらう</li>
             <li>下のボタンでCRM顧客とLINE User IDを紐付け</li>
-            <li>管理ホーム「気象×連絡」から自動送信</li>
+            <li>マーケホーム「気象×連絡」から自動送信</li>
           </ol>
           <a
             href={official.addFriendUrl}

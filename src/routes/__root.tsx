@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { RoleProvider } from "../lib/role";
+import { STORE } from "../lib/store-config";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -79,11 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PitLink Pro — タイヤプロショップ向け予約・CRMインフラ" },
-      { name: "description", content: "福井のタイヤプロショップ向け、ハガキ代と人件費を撲滅するBtoB予約・CRMインフラ。" },
-      { name: "author", content: "PitLink" },
-      { property: "og:title", content: "PitLink Pro" },
-      { property: "og:description", content: "福井のタイヤプロショップ向けBtoB予約・CRMインフラ。" },
+      { title: `${STORE.shopName} ${STORE.productName} — ${STORE.tagline}` },
+      { name: "description", content: `${STORE.shopName}専用。気象連動の集客・再来店キャンペーンをAIが支援します。` },
+      { name: "author", content: STORE.shopName },
+      { property: "og:title", content: `${STORE.shopName} ${STORE.productName}` },
+      { property: "og:description", content: STORE.tagline },
     ],
     links: [
       {

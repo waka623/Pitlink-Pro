@@ -43,8 +43,8 @@ function Dashboard() {
 
   return (
     <AppShell
-      title="管理ホーム"
-      subtitle="気象連動の個別連絡 · ダイナミックプライシング · POS同期"
+      title="マーケホーム"
+      subtitle="気象連動キャンペーン · 集客価格 · 予約導線"
     >
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="h-auto flex-wrap gap-1 p-1 bg-muted/50">

@@ -9,6 +9,7 @@ import {
   suggestAncillaryProducts,
 } from "./customer-analysis";
 import { isLineLinked } from "./line-link";
+import { STORE, storeBookingUrl } from "./store-config";
 
 export type MessageChannel = "email" | "line";
 
@@ -44,15 +45,15 @@ function weatherContext(weather: WeatherData | null): {
 
 function pickSubject(c: Customer, risk: RiskResult, snowing: boolean): string {
   if (snowing && risk.level !== "safe") {
-    return `【安全のお知らせ】${c.name}様 — 降雪前のタイヤセルフチェック（タイヤ館福井）`;
+    return `【安全のお知らせ】${c.name}様 — 降雪前のタイヤセルフチェック（${STORE.shopName}）`;
   }
   if (risk.level === "danger") {
-    return `【安全確認】${c.name}様 — 冬道走行のリスクについて（タイヤ館福井）`;
+    return `【安全確認】${c.name}様 — 冬道走行のリスクについて（${STORE.shopName}）`;
   }
   if (risk.level === "warn") {
     return `【ご案内】${c.name}様 — 足元の安全を守る無料点検のご案内`;
   }
-  return `【タイヤ館福井】${c.name}様 — 安全運転のための季節点検`;
+  return `【${STORE.shopName}】${c.name}様 — 安全運転のための季節点検`;
 }
 
 function buildSelfCheckList(
@@ -143,7 +144,7 @@ export function generatePersonalizedMessage(
   const safetyMaintenance = formatAncillarySection(ancillary);
   const safetyLine = formatAncillaryLine(ancillary);
   const visitInvite = buildVisitInvite(customer, risk);
-  const bookingUrl = `https://pitlink.pro/book/${customer.id}?weekday=1`;
+  const bookingUrl = storeBookingUrl(customer.id, { weekday: true });
 
   const rationale: string[] = ["安全管理・セルフチェック重視の文面"];
   if (snowing) rationale.push("降雪 — 走行前チェックリストを付与");
@@ -156,7 +157,7 @@ export function generatePersonalizedMessage(
 
   const emailBody = `${customer.name}様
 
-いつもタイヤ館福井をご利用いただき、ありがとうございます。
+いつも${STORE.shopName}をご利用いただき、ありがとうございます。
 
 ${alert}
 
@@ -181,11 +182,11 @@ ${bookingUrl}
 
 安全な冬道を、一緒に整えていきましょう。
 
-タイヤ館福井
-TEL：0778-XX-XXXX
-公式LINE：@taiyakan_fukui`;
+${STORE.shopName}
+TEL：${STORE.tel}
+公式LINE：${STORE.lineId}`;
 
-  const lineBody = `【タイヤ館福井｜安全のお知らせ】
+  const lineBody = `【${STORE.shopName}｜安全のお知らせ】
 ${customer.name} 様
 
 ${alert}

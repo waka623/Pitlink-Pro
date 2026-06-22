@@ -1,8 +1,8 @@
-/** タイヤ館福井 公式LINE連携（デモ: localStorage + バックエンドAPI） */
+/** タイヤ館福井文京店 公式LINE連携（デモ: localStorage + バックエンドAPI） */
+
+import { STORE } from "./store-config";
 
 const STORAGE_KEY = "pitlink-line-links";
-const OFFICIAL_ACCOUNT_ID = "@taiyakan_fukui";
-const OFFICIAL_ADD_URL = "https://line.me/R/ti/p/@taiyakan_fukui";
 
 export type LineLinkRecord = {
   customerId: string;
@@ -13,9 +13,9 @@ export type LineLinkRecord = {
 
 export function getOfficialLineAccount() {
   return {
-    accountId: OFFICIAL_ACCOUNT_ID,
-    addFriendUrl: OFFICIAL_ADD_URL,
-    shopName: "タイヤ館福井",
+    accountId: STORE.lineId,
+    addFriendUrl: STORE.lineAddUrl,
+    shopName: STORE.shopName,
   };
 }
 

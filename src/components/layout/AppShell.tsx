@@ -1,10 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useRole, ROLE_LABELS, ROLE_BADGE } from "@/lib/role";
+import { STORE } from "@/lib/store-config";
 
 const NAV = [
-  { to: "/dashboard", label: "管理ホーム", desc: "気象・連絡・POS" },
-  { to: "/customers", label: "顧客管理", desc: "CRM専用" },
+  { to: "/dashboard", label: "マーケホーム", desc: "気象×キャンペーン" },
+  { to: "/customers", label: "顧客管理", desc: "セグメント・配信" },
   { to: "/booking", label: "予約ページ", desc: "お客様向け" },
 ] as const;
 
@@ -27,11 +28,11 @@ export function AppShell({ title, subtitle, children }: Props) {
               className="size-10 rounded-lg grid place-items-center font-black text-sm"
               style={{ background: "var(--signal)", color: "black" }}
             >
-              P
+              文
             </div>
             <div>
-              <div className="font-bold text-base leading-tight">PitLink Pro</div>
-              <div className="text-xs text-muted-foreground">福井 · タイヤ館</div>
+              <div className="font-bold text-base leading-tight">{STORE.shortName} {STORE.productName}</div>
+              <div className="text-xs text-muted-foreground">{STORE.shopName}</div>
             </div>
           </div>
         </div>

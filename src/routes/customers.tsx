@@ -17,12 +17,13 @@ import { LineLinkPanel } from "@/components/customers/LineLinkPanel";
 import { useCustomers, useLineLinkRefresh } from "@/hooks/use-customers";
 import { useRole, can } from "@/lib/role";
 import { isLineLinked } from "@/lib/line-link";
+import { STORE } from "@/lib/store-config";
 
 export const Route = createFileRoute("/customers")({
   head: () => ({
     meta: [
-      { title: "顧客管理 — PitLink Pro" },
-      { name: "description", content: "顧客CRM・タイヤリスク管理" },
+      { title: `顧客管理 — ${STORE.shopName}` },
+      { name: "description", content: `${STORE.shopName}の顧客セグメント・配信管理` },
     ],
   }),
   component: CustomersPage,

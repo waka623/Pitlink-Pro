@@ -16,6 +16,7 @@ import {
   type AvailabilityResponse,
 } from "@/api/reservations";
 import { ReservationCalendar, ReservationLegend } from "@/components/booking/ReservationCalendar";
+import { STORE } from "@/lib/store-config";
 
 type BookingSearch = {
   slot?: string;
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/booking")({
     newCustomer: search.newCustomer != null ? Number(search.newCustomer) : undefined,
     customer: typeof search.customer === "string" ? search.customer : undefined,
   }),
-  head: () => ({ meta: [{ title: "ご予約 — タイヤ館福井" }] }),
+  head: () => ({ meta: [{ title: `ご予約 — ${STORE.shopName}` }] }),
   component: Booking,
 });
 

@@ -1,11 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useRole, ROLE_LABELS, type Role } from "@/lib/role";
+import { STORE } from "@/lib/store-config";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PitLink Pro — ログイン" },
-      { name: "description", content: "タイヤプロショップ向け予約・CRMインフラ。権限を選んでログイン。" },
+      { title: `${STORE.shopName} ${STORE.productName} — ログイン` },
+      { name: "description", content: `${STORE.shopName}専用の${STORE.tagline}。権限を選んでログイン。` },
     ],
   }),
   component: Login,
@@ -24,12 +25,12 @@ const ROLE_DESC: Record<Role, { tag: string; perms: string[]; badge: string }> =
   owner: {
     tag: "全権限",
     badge: "店長",
-    perms: ["全顧客情報閲覧", "CSVダウンロード", "ダイナミック価格設定", "POS同期"],
+    perms: ["キャンペーン承認", "AI文案生成", "顧客セグメント", "予約・価格設定"],
   },
   staff: {
     tag: "現場担当",
     badge: "現場",
-    perms: ["顧客情報閲覧", "タイヤ点検入力", "LINE警告送信", "POS同期"],
+    perms: ["顧客情報閲覧", "LINE配信", "安全案内送信", "予約確認"],
   },
   parttime: {
     tag: "制限付き",
@@ -54,13 +55,13 @@ function Login() {
         <div className="flex items-center gap-3">
           <Logo />
           <div className="leading-tight">
-            <div className="text-mono text-[11px] tracking-[0.25em] text-muted-foreground">PITLINK PRO</div>
-            <div className="text-sm font-bold">タイヤプロショップ予約・CRMインフラ</div>
+            <div className="text-mono text-[11px] tracking-[0.25em] text-muted-foreground">{STORE.productName.toUpperCase()}</div>
+            <div className="text-sm font-bold">{STORE.shopName}</div>
           </div>
         </div>
         <div className="flex items-center gap-4 text-mono text-[11px] text-muted-foreground">
           <span><span className="text-safe">●</span> システム正常</span>
-          <span>福井-01 / v0.9.4</span>
+          <span>{STORE.shortName} / v{STORE.version}</span>
         </div>
       </header>
 
@@ -72,21 +73,21 @@ function Login() {
           />
           <div className="relative max-w-xl">
             <div className="chip border-[color-mix(in_oklab,var(--signal)_60%,transparent)] text-[var(--signal)]">
-              福井専用 · BtoB
+              {STORE.shortName}専用 · 集客AI
             </div>
             <h1 className="mt-6 text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight">
-              ハガキ代と<br/>二重入力を、<br/>
-              <span className="text-[var(--signal)]">撲滅する。</span>
+              集客と再来店を、<br/>AIが<br/>
+              <span className="text-[var(--signal)]">設計する。</span>
             </h1>
             <p className="mt-6 text-base text-muted-foreground leading-relaxed">
-              福井のタイヤプロショップに特化した、現場のための予約・CRMインフラ。
-              大手POSと共存しながら、雪道リスクの自動判定・LINE個別警告・平日エコ枠の
-              ダイナミックプライシングまで、店長と現場の手数を最短化します。
+              {STORE.shopName}専用の{STORE.tagline}。
+              福井の気象・顧客データ・予約枠を読み取り、LINE・メールのキャンペーン文案を自動生成。
+              安全を軸にした集客で、新規来店と再来店を同時に伸ばします。
             </p>
             <dl className="mt-10 grid grid-cols-3 gap-px bg-border rounded-lg overflow-hidden">
-              <Stat k="平均削減" v="¥184k" sub="/月 ハガキ＋人件費" />
-              <Stat k="再来店率" v="+38%" sub="LINE個別警告経由" />
-              <Stat k="POS同期" v="ワンクリック" sub="本部マスタ差分のみ" />
+              <Stat k="キャンペーン" v="自動" sub="天候×顧客セグメント" />
+              <Stat k="再来店率" v="+38%" sub="LINE個別案内経由" />
+              <Stat k="予約獲得" v="ワンタップ" sub="エコ枠へ直接導線" />
             </dl>
           </div>
         </section>
