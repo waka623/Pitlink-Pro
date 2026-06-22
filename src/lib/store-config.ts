@@ -14,21 +14,29 @@ export const STORE = {
   businessHoursOpen: "9:00",
   businessHoursClose: "18:30",
   businessHoursDisplay: "9:00〜18:30",
-  lineId: "@taiyakan_fukui",
-  lineAddUrl: "https://line.me/R/ti/p/@taiyakan_fukui",
+  /** 公式LINE ID — 未開設の場合は null */
+  lineId: null as string | null,
+  lineAddUrl: null as string | null,
   bookingBaseUrl: "https://pitlink-pro.vercel.app/booking",
   serviceArea: "福井市文京・中央エリア",
   mapsQuery: "タイヤ館福井文京店",
 } as const;
 
+export function hasOfficialLine(): boolean {
+  return Boolean(STORE.lineId && STORE.lineAddUrl);
+}
+
 export function storeContactBlock(): string {
-  return [
+  const lines = [
     STORE.shopName,
     STORE.fullAddress,
     `TEL：${STORE.tel}`,
     `営業時間：${STORE.businessHoursDisplay}`,
-    `公式LINE：${STORE.lineId}`,
-  ].join("\n");
+  ];
+  if (STORE.lineId) {
+    lines.push(`公式LINE：${STORE.lineId}`);
+  }
+  return lines.join("\n");
 }
 
 export function storeBookingUrl(

@@ -1,6 +1,6 @@
-/** タイヤ館福井文京店 公式LINE連携（デモ: localStorage + バックエンドAPI） */
+/** タイヤ館福井文京店 LINE連携（デモ: localStorage + バックエンドAPI） */
 
-import { STORE } from "./store-config";
+import { STORE, hasOfficialLine } from "./store-config";
 
 const STORAGE_KEY = "pitlink-line-links";
 
@@ -13,6 +13,7 @@ export type LineLinkRecord = {
 
 export function getOfficialLineAccount() {
   return {
+    configured: hasOfficialLine(),
     accountId: STORE.lineId,
     addFriendUrl: STORE.lineAddUrl,
     shopName: STORE.shopName,
@@ -66,9 +67,11 @@ export function unlinkCustomerLine(customerId: string) {
 }
 
 export function isLineLinked(customerId: string, fallbackLineId?: string): boolean {
+  if (!hasOfficialLine()) return false;
   return Boolean(getLineLink(customerId)?.lineUserId || fallbackLineId);
 }
 
 export function resolveLineUserId(customerId: string, fallbackLineId?: string): string | undefined {
+  if (!hasOfficialLine()) return undefined;
   return getLineLink(customerId)?.lineUserId ?? fallbackLineId;
 }

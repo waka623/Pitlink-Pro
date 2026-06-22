@@ -108,6 +108,7 @@ function visitContext(c: Customer): string | null {
 }
 
 function recommendChannel(c: Customer, risk: RiskResult): MessageChannel {
+  if (!STORE.lineId) return "email";
   const linked = isLineLinked(c.id, c.lineId);
   if (linked && risk.level !== "safe") return "line";
   return linked ? "line" : "email";

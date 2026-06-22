@@ -3,6 +3,7 @@ import type { Customer, RiskResult } from "@/lib/mock-data";
 import type { GeneratedMessage, MessageChannel } from "@/lib/message-generator";
 import { RISK_LABELS } from "@/lib/customer-utils";
 import { isLineLinked } from "@/lib/line-link";
+import { hasOfficialLine } from "@/lib/store-config";
 
 type Props = {
   customer: Customer;
@@ -73,12 +74,14 @@ export function MessageComposePanel({
           active={channel === "line"}
           onClick={() => onChannelChange("line")}
           label="公式LINE"
-          disabled={!isLineLinked(customer.id, customer.lineId)}
+          disabled={!hasOfficialLine() || !isLineLinked(customer.id, customer.lineId)}
           line
         />
-        {!isLineLinked(customer.id, customer.lineId) && (
+        {!hasOfficialLine() ? (
+          <span className="text-xs text-muted-foreground self-center">公式LINE未設定</span>
+        ) : !isLineLinked(customer.id, customer.lineId) ? (
           <span className="text-xs text-muted-foreground self-center">LINE未連携</span>
-        )}
+        ) : null}
       </div>
 
       {!sent ? (

@@ -34,7 +34,7 @@ export function LineLinkPanel({ customer, canManage, onUpdated }: Props) {
   }, []);
 
   const handleLink = async () => {
-    if (!canManage) return;
+    if (!canManage || !official.configured) return;
     setBusy(true);
     try {
       const record = linkCustomerLine(customer.id, customer.name);
@@ -74,11 +74,25 @@ export function LineLinkPanel({ customer, canManage, onUpdated }: Props) {
         </div>
         <div>
           <h2 className="section-title">公式LINE連携</h2>
-          <p className="text-sm text-muted-foreground">{official.shopName} · {official.accountId}</p>
+          <p className="text-sm text-muted-foreground">
+            {official.shopName}
+            {official.configured && official.accountId ? ` · ${official.accountId}` : " · ID未登録"}
+          </p>
         </div>
       </div>
 
-      {linked ? (
+      {!official.configured && (
+        <div className="rounded-lg bg-amber-500/10 border border-amber-500/30 p-4 text-sm text-muted-foreground space-y-2">
+          <p className="font-bold text-foreground">公式LINEアカウントは未設定です</p>
+          <p>
+            文京店の公式LINE ID が確認できないため、現時点では
+            <strong className="text-foreground"> メール配信 </strong>
+            が主チャネルです。LINE を開設したら {STORE.productName} に ID を登録してください。
+          </p>
+        </div>
+      )}
+
+      {official.configured && linked ? (
         <div className="rounded-lg bg-[#06c755]/10 border border-[#06c755]/30 p-4 space-y-2">
           <div className="flex items-center gap-2 text-[#06c755] font-bold">
             <span>✓ 連携済み</span>
@@ -104,7 +118,7 @@ export function LineLinkPanel({ customer, canManage, onUpdated }: Props) {
             </button>
           )}
         </div>
-      ) : (
+      ) : official.configured ? (
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground leading-relaxed">
             顧客が公式LINEを友だち追加後、{STORE.productName}で紐付けると
@@ -117,7 +131,7 @@ export function LineLinkPanel({ customer, canManage, onUpdated }: Props) {
             <li>マーケホーム「気象×連絡」から自動送信</li>
           </ol>
           <a
-            href={official.addFriendUrl}
+            href={official.addFriendUrl ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex btn-line px-4 py-2 text-sm"
@@ -137,7 +151,7 @@ export function LineLinkPanel({ customer, canManage, onUpdated }: Props) {
             <p className="text-xs text-muted-foreground">連携操作にはスタッフ以上の権限が必要です</p>
           )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
