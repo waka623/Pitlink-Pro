@@ -9,7 +9,7 @@ import {
   suggestAncillaryProducts,
 } from "./customer-analysis";
 import { isLineLinked } from "./line-link";
-import { STORE, storeBookingUrl } from "./store-config";
+import { STORE, storeBookingUrl, storeContactBlock } from "./store-config";
 
 export type MessageChannel = "email" | "line";
 
@@ -182,9 +182,7 @@ ${bookingUrl}
 
 安全な冬道を、一緒に整えていきましょう。
 
-${STORE.shopName}
-TEL：${STORE.tel}
-公式LINE：${STORE.lineId}`;
+${storeContactBlock()}`;
 
   const lineBody = `【${STORE.shopName}｜安全のお知らせ】
 ${customer.name} 様
@@ -202,7 +200,10 @@ ${safetyLine}
 ${visitInvite}
 
 ▶ 空き枠から予約
-${bookingUrl}`;
+${bookingUrl}
+
+📍 ${STORE.fullAddress}
+TEL ${STORE.tel} · ${STORE.businessHoursDisplay}`;
 
   return {
     customerId: customer.id,

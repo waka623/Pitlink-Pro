@@ -184,6 +184,18 @@ function Booking() {
         <Link to="/dashboard" search={{ tab: "pricing" }} className="text-sm text-primary hover:underline inline-block">
           ← プライシング設定に戻る
         </Link>
+
+        <div className="panel p-5 text-sm text-muted-foreground space-y-1">
+          <div className="font-bold text-foreground">{STORE.shopName}</div>
+          <p>{STORE.fullAddress}</p>
+          <p>
+            TEL{" "}
+            <a href={`tel:${STORE.telLink}`} className="text-primary hover:underline">
+              {STORE.tel}
+            </a>
+          </p>
+          <p>営業時間：{STORE.businessHoursDisplay}</p>
+        </div>
       </div>
     </AppShell>
   );

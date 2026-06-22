@@ -89,6 +89,17 @@ function Login() {
               <Stat k="再来店率" v="+38%" sub="LINE個別案内経由" />
               <Stat k="予約獲得" v="ワンタップ" sub="エコ枠へ直接導線" />
             </dl>
+            <div className="mt-8 text-sm text-muted-foreground space-y-1 border-t border-border/60 pt-6">
+              <p>{STORE.fullAddress}</p>
+              <p>
+                TEL{" "}
+                <a href={`tel:${STORE.telLink}`} className="text-foreground hover:text-primary">
+                  {STORE.tel}
+                </a>
+                {" · "}
+                営業 {STORE.businessHoursDisplay}
+              </p>
+            </div>
           </div>
         </section>
 
