@@ -21,6 +21,7 @@ export function getOfficialLineAccount() {
 }
 
 function loadAll(): Record<string, LineLinkRecord> {
+  if (typeof window === "undefined") return {};
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
@@ -31,6 +32,7 @@ function loadAll(): Record<string, LineLinkRecord> {
 }
 
 function saveAll(records: Record<string, LineLinkRecord>) {
+  if (typeof window === "undefined") return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
 }
 

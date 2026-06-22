@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { customers as baseCustomers, type Customer } from "@/lib/mock-data";
 import { getLineLink } from "@/lib/line-link";
 
 function mergeLineLinks(list: typeof baseCustomers): Customer[] {
+  if (typeof window === "undefined") return list;
   return list.map((c) => {
     const link = getLineLink(c.id);
     if (!link) return c;
@@ -16,23 +17,26 @@ function mergeLineLinks(list: typeof baseCustomers): Customer[] {
 }
 
 export function useCustomers(): Customer[] {
-  const [version, setVersion] = useState(0);
+  const [customers, setCustomers] = useState<Customer[]>(baseCustomers);
 
   useEffect(() => {
-    const refresh = () => setVersion((v) => v + 1);
+    const refresh = () => setCustomers(mergeLineLinks(baseCustomers));
+    refresh();
     window.addEventListener("pitlink:line-links-updated", refresh);
     return () => window.removeEventListener("pitlink:line-links-updated", refresh);
   }, []);
 
-  return useMemo(() => mergeLineLinks(baseCustomers), [version]);
+  return customers;
 }
 
 export function useCustomerById(id: string | null): Customer | null {
   const list = useCustomers();
-  return useMemo(() => list.find((c) => c.id === id) ?? null, [list, id]);
+  if (!id) return null;
+  return list.find((c) => c.id === id) ?? null;
 }
 
 export function useLineLinkRefresh(): () => void {
-  const [, setVersion] = useState(0);
-  return useCallback(() => setVersion((v) => v + 1), []);
+  return useCallback(() => {
+    window.dispatchEvent(new CustomEvent("pitlink:line-links-updated"));
+  }, []);
 }

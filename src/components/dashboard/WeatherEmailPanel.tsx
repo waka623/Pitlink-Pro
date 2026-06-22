@@ -31,7 +31,7 @@ export function WeatherEmailPanel({ preselectedCustomer = null }: Props) {
   const weatherRef = useRef<WeatherData | null>(null);
   const [loadingWeather, setLoadingWeather] = useState(true);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(preselectedCustomer);
-  const [channel, setChannel] = useState<MessageChannel>("line");
+  const [channel, setChannel] = useState<MessageChannel>("email");
   const [sending, setSending] = useState(false);
   const [dispatchQueue, setDispatchQueue] = useState<
     Array<{ name: string; status: "pending" | "ok" | "fail"; channel: string }>
@@ -77,7 +77,7 @@ export function WeatherEmailPanel({ preselectedCustomer = null }: Props) {
   const selectedRisk = selectedCustomer ? calcCustomerRisk(selectedCustomer) : null;
   const recommendedChannel = selectedCustomer
     ? generatePersonalizedMessage(selectedCustomer, weather).recommendedChannel
-    : "line";
+    : "email";
 
   useEffect(() => {
     if (selectedCustomer) {

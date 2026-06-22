@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Customer, RiskResult } from "@/lib/mock-data";
 import type { GeneratedMessage, MessageChannel } from "@/lib/message-generator";
-import { RISK_LABELS } from "@/lib/customer-utils";
+import { RISK_LABELS, RISK_CHIP_CLASS } from "@/lib/customer-utils";
 import { isLineLinked } from "@/lib/line-link";
 import { hasOfficialLine } from "@/lib/store-config";
 
@@ -60,10 +60,7 @@ export function MessageComposePanel({
             </span>
           </p>
         </div>
-        <span
-          className="chip"
-          style={{ color: RISK_LABELS[risk.level].color, borderColor: RISK_LABELS[risk.level].color }}
-        >
+        <span className={`chip ${RISK_CHIP_CLASS[risk.level]}`}>
           リスク {RISK_LABELS[risk.level].label}
         </span>
       </div>

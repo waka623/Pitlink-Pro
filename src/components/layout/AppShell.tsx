@@ -24,10 +24,7 @@ export function AppShell({ title, subtitle, children }: Props) {
       <aside className="lg:w-56 shrink-0 border-b lg:border-b-0 lg:border-r border-border bg-panel">
         <div className="p-5 border-b border-border">
           <div className="flex items-center gap-3">
-            <div
-              className="size-10 rounded-lg grid place-items-center font-black text-sm"
-              style={{ background: "var(--signal)", color: "black" }}
-            >
+            <div className="size-10 rounded-lg grid place-items-center font-black text-sm bg-[var(--signal)] text-black">
               文
             </div>
             <div>

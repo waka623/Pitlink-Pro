@@ -43,6 +43,12 @@ export const RISK_TEXT_CLASS: Record<RiskResult["level"], string> = {
   safe: "text-safe",
 };
 
+export const RISK_CHIP_CLASS: Record<RiskResult["level"], string> = {
+  danger: "text-destructive border-destructive",
+  warn: "text-amber-500 border-amber-500",
+  safe: "text-safe border-safe",
+};
+
 export function customerSummary(c: Customer, risk: RiskResult): string {
   const days = daysSince(c.lastVisit);
   const vehicleAge = getVehicleAgeYears(c);
