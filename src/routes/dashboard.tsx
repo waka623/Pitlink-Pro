@@ -4,6 +4,7 @@ import { WeatherEmailPanel } from "@/components/dashboard/WeatherEmailPanel";
 import { PricingModule } from "@/components/dashboard/PricingModule";
 import { MarketingAgentPanel } from "@/components/marketing/MarketingAgentPanel";
 import { MarketingAnalyticsPanel } from "@/components/marketing/MarketingAnalyticsPanel";
+import { MarketingKpiActionBar, SystemCapabilityGuide } from "@/components/marketing/MarketingKpiActionBar";
 import { AppShell } from "@/components/layout/AppShell";
 import { useRole, can } from "@/lib/role";
 import { useCustomerById } from "@/hooks/use-customers";
@@ -46,8 +47,10 @@ function Dashboard() {
   return (
     <AppShell
       title="マーケAIホーム"
-      subtitle="集客 · 売上改善 · キャンペーン配信 — 文京店専用"
+      subtitle="KPI逆算 → 今日やること → 配信 · 文京店専用"
     >
+      <MarketingKpiActionBar onNavigateTab={setActiveTab} />
+
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="h-auto flex-wrap gap-1 p-1 bg-muted/50">
           <TabsTrigger value="agent" className="text-sm px-4 py-2">
@@ -67,7 +70,10 @@ function Dashboard() {
         </TabsList>
 
         <TabsContent value="agent">
-          <MarketingAgentPanel />
+          <SystemCapabilityGuide />
+          <div className="mt-6">
+            <MarketingAgentPanel />
+          </div>
         </TabsContent>
 
         <TabsContent value="campaign">
