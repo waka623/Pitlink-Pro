@@ -1,11 +1,11 @@
 /** タイヤ館福井文京店 — V2 店舗設定（単一ソース） */
 
 export const STORE = {
-  version: "2.0.0",
+  version: "2.1.0",
   shopName: "タイヤ館福井文京店",
   shortName: "文京店",
   productName: "マーケAI",
-  tagline: "集客・マーケティングAIエージェント",
+  tagline: "集客・売上改善に特化したマーケティングAI",
   postalCode: "910-0017",
   address: "福井県福井市文京７丁目２−３８",
   fullAddress: "〒910-0017 福井県福井市文京７丁目２−３８",

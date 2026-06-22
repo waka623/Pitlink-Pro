@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WeatherEmailPanel } from "@/components/dashboard/WeatherEmailPanel";
 import { PricingModule } from "@/components/dashboard/PricingModule";
-import { PosSyncPanel } from "@/components/dashboard/PosSyncPanel";
+import { MarketingAgentPanel } from "@/components/marketing/MarketingAgentPanel";
+import { MarketingAnalyticsPanel } from "@/components/marketing/MarketingAnalyticsPanel";
 import { AppShell } from "@/components/layout/AppShell";
 import { useRole, can } from "@/lib/role";
 import { useCustomerById } from "@/hooks/use-customers";
@@ -21,63 +22,67 @@ export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
 });
 
+function normalizeTab(tab: string | undefined, showPromo: boolean): string {
+  if (tab === "contact") return "campaign";
+  if (tab === "pricing") return "promo";
+  if (tab === "agent" || tab === "campaign" || tab === "roi") return tab;
+  if (tab === "promo" && showPromo) return "promo";
+  return "agent";
+}
+
 function Dashboard() {
   const { role } = useRole();
   const { tab, customer: customerId } = Route.useSearch();
-  const showPricing = !role || can.managePricing(role);
-  const showPos = !role || can.syncPOS(role);
+  const showPromo = !role || can.managePricing(role);
 
-  const defaultTab =
-    tab === "pricing" && showPricing
-      ? "pricing"
-      : tab === "pos" && showPos
-        ? "pos"
-        : "contact";
-
+  const defaultTab = normalizeTab(tab, showPromo);
   const [activeTab, setActiveTab] = useState(defaultTab);
   const preselectedCustomer = useCustomerById(customerId ?? null);
 
   useEffect(() => {
-    setActiveTab(defaultTab);
-  }, [defaultTab]);
+    setActiveTab(normalizeTab(tab, showPromo));
+  }, [tab, showPromo]);
 
   return (
     <AppShell
-      title="マーケホーム"
-      subtitle="気象連動キャンペーン · 集客価格 · 予約導線"
+      title="マーケAIホーム"
+      subtitle="集客 · 売上改善 · キャンペーン配信 — 文京店専用"
     >
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="h-auto flex-wrap gap-1 p-1 bg-muted/50">
-          <TabsTrigger value="contact" className="text-sm px-4 py-2">
-            気象 × 連絡
+          <TabsTrigger value="agent" className="text-sm px-4 py-2">
+            マーケAI設計
           </TabsTrigger>
-          {showPricing && (
-            <TabsTrigger value="pricing" className="text-sm px-4 py-2">
-              ダイナミックプライシング
+          <TabsTrigger value="campaign" className="text-sm px-4 py-2">
+            キャンペーン配信
+          </TabsTrigger>
+          {showPromo && (
+            <TabsTrigger value="promo" className="text-sm px-4 py-2">
+              集客プロモ
             </TabsTrigger>
           )}
-          {showPos && (
-            <TabsTrigger value="pos" className="text-sm px-4 py-2">
-              POS同期
-            </TabsTrigger>
-          )}
+          <TabsTrigger value="roi" className="text-sm px-4 py-2">
+            効果測定
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="contact">
+        <TabsContent value="agent">
+          <MarketingAgentPanel />
+        </TabsContent>
+
+        <TabsContent value="campaign">
           <WeatherEmailPanel preselectedCustomer={preselectedCustomer} />
         </TabsContent>
 
-        {showPricing && (
-          <TabsContent value="pricing">
+        {showPromo && (
+          <TabsContent value="promo">
             <PricingModule />
           </TabsContent>
         )}
 
-        {showPos && (
-          <TabsContent value="pos">
-            <PosSyncPanel />
-          </TabsContent>
-        )}
+        <TabsContent value="roi">
+          <MarketingAnalyticsPanel />
+        </TabsContent>
       </Tabs>
     </AppShell>
   );

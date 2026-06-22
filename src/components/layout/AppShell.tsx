@@ -4,9 +4,9 @@ import { useRole, ROLE_LABELS, ROLE_BADGE } from "@/lib/role";
 import { STORE } from "@/lib/store-config";
 
 const NAV = [
-  { to: "/dashboard", label: "マーケホーム", desc: "気象×キャンペーン" },
-  { to: "/customers", label: "顧客管理", desc: "セグメント・配信" },
-  { to: "/booking", label: "予約ページ", desc: "お客様向け" },
+  { to: "/dashboard", label: "マーケAI", desc: "集客・売上設計" },
+  { to: "/customers", label: "ターゲット顧客", desc: "セグメント分析" },
+  { to: "/booking", label: "予約導線", desc: "集客ランディング" },
 ] as const;
 
 type Props = {

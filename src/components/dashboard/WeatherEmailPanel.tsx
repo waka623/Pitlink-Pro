@@ -150,9 +150,9 @@ export function WeatherEmailPanel({ preselectedCustomer = null }: Props) {
 
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="panel p-6 border-danger/20">
-          <h2 className="section-title text-danger">自動送信対象（{autoTargets.length}件）</h2>
+          <h2 className="section-title text-danger">配信対象（{autoTargets.length}件）</h2>
           <p className="text-sm text-muted-foreground mt-2 mb-4">
-            危険・降雪×注意など。安全管理を促す文面を1件ずつ送信します。
+            マーケセグメントから自動抽出。1件ずつパーソナライズ配信します。
           </p>
           <div className="space-y-2 max-h-72 overflow-y-auto">
             {autoTargets.map((c) => {

@@ -25,17 +25,17 @@ const ROLE_DESC: Record<Role, { tag: string; perms: string[]; badge: string }> =
   owner: {
     tag: "全権限",
     badge: "店長",
-    perms: ["キャンペーン承認", "AI文案生成", "顧客セグメント", "予約・価格設定"],
+    perms: ["マーケAI設計", "キャンペーン承認", "集客プロモ", "効果測定"],
   },
   staff: {
     tag: "現場担当",
     badge: "現場",
-    perms: ["顧客情報閲覧", "LINE配信", "安全案内送信", "予約確認"],
+    perms: ["キャンペーン配信", "ターゲット確認", "予約導線共有"],
   },
   parttime: {
     tag: "制限付き",
     badge: "バイト",
-    perms: ["氏名マスク表示", "点検入力のみ", "CSV不可", "価格設定不可"],
+    perms: ["効果閲覧のみ", "配信不可", "プロモ設定不可"],
   },
 };
 
@@ -73,21 +73,21 @@ function Login() {
           />
           <div className="relative max-w-xl">
             <div className="chip border-[color-mix(in_oklab,var(--signal)_60%,transparent)] text-[var(--signal)]">
-              {STORE.shortName}専用 · 集客AI
+              集客 · 売上改善 Specialist
             </div>
             <h1 className="mt-6 text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight">
-              集客と再来店を、<br/>AIが<br/>
-              <span className="text-[var(--signal)]">設計する。</span>
+              汎用ツールでは、<br/>勝てない。<br/>
+              <span className="text-[var(--signal)]">マーケ特化AI。</span>
             </h1>
             <p className="mt-6 text-base text-muted-foreground leading-relaxed">
-              {STORE.shopName}専用の{STORE.tagline}。
-              福井の気象・顧客データ・予約枠を読み取り、LINE・メールのキャンペーン文案を自動生成。
-              安全を軸にした集客で、新規来店と再来店を同時に伸ばします。
+              {STORE.shopName}専用。CRMもPOSも「便利」だけでは既存ツールに負けます。
+              本システムは<strong className="text-foreground">集客・売上改善・マーケティングだけ</strong>
+              に特化。福井の天候、顧客セグメント、予約枠から、来店と客単価を伸ばす施策だけを設計します。
             </p>
             <dl className="mt-10 grid grid-cols-3 gap-px bg-border rounded-lg overflow-hidden">
-              <Stat k="キャンペーン" v="自動" sub="天候×顧客セグメント" />
-              <Stat k="再来店率" v="+38%" sub="LINE個別案内経由" />
-              <Stat k="予約獲得" v="ワンタップ" sub="エコ枠へ直接導線" />
+              <Stat k="新規集客" v="設計" sub="初回来店キャンペーン" />
+              <Stat k="売上UP" v="提案" sub="安全メンテ×客単価" />
+              <Stat k="ROI" v="可視化" sub="配信→予約→来店" />
             </dl>
             <div className="mt-8 text-sm text-muted-foreground space-y-1 border-t border-border/60 pt-6">
               <p>{STORE.fullAddress}</p>

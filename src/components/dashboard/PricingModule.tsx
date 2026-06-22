@@ -118,11 +118,14 @@ export function PricingModule() {
       <div className="panel p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h2 className="section-title">平日ダイナミックプライシング</h2>
+            <h2 className="section-title">集客プロモーション</h2>
             <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
-              <strong className="text-foreground">{availability?.system_name ?? "店舗予約システム"}</strong>
-              と連携。緑=空き枠のみエコ割引を設定でき、予約ページからそのまま入庫予約できます。
-              {availability && `（空き${availability.available_count} / 予約済${availability.booked_count}）`}
+              新規来店獲得のための<strong className="text-foreground">平日エコ枠・初回割引</strong>。
+              マーケAI設計タブで決めた施策を、予約導線にそのまま反映します。
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {availability?.system_name ?? "店舗予約システム"}連携
+              {availability && ` · 空き${availability.available_count} / 予約済${availability.booked_count}`}
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

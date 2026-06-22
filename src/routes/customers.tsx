@@ -63,8 +63,8 @@ function CustomersPage() {
 
   return (
     <AppShell
-      title="顧客管理"
-      subtitle="顧客情報 · 車体分析 · 公式LINE連携（連絡送信は管理ホームから）"
+      title="ターゲット顧客"
+      subtitle="セグメント分析 · 来店ポテンシャル · キャンペーン配信へ"
     >
       <div className="grid lg:grid-cols-[1.3fr_1fr] gap-6">
         <div className="panel overflow-hidden">
@@ -193,10 +193,10 @@ function CustomersPage() {
 
               <Link
                 to="/dashboard"
-                search={{ tab: "contact", customer: selected.id }}
+                search={{ tab: "campaign", customer: selected.id }}
                 className="block w-full text-center btn-primary py-4 text-base"
               >
-                この顧客に連絡する →
+                キャンペーン配信へ →
               </Link>
             </>
           ) : (

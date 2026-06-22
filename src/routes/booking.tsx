@@ -181,8 +181,8 @@ function Booking() {
           </div>
         )}
 
-        <Link to="/dashboard" search={{ tab: "pricing" }} className="text-sm text-primary hover:underline inline-block">
-          ← プライシング設定に戻る
+        <Link to="/dashboard" search={{ tab: "promo" }} className="text-sm text-primary hover:underline inline-block">
+          ← 集客プロモ設定に戻る
         </Link>
 
         <div className="panel p-5 text-sm text-muted-foreground space-y-1">
